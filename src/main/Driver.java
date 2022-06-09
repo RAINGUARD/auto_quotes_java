@@ -22,18 +22,25 @@ public class Driver {
 			PPTGenerator s1 = new PPTGenerator();
 			
 			if(input.equals("1")) {
+				System.out.println("Loading...");
 				s1.createStripperQuote();
 			} else if(input.equals("2")) {
+				System.out.println("Loading...");
 				s1.createScrambleQuote();
 			} else if(input.equals("3")) {
+				System.out.println("Loading...");
 				s1.createSplitQuote();
 			} else if(input.equals("4")) {
+				System.out.println("Loading...");
 				s1.createDropQuote();
 			} else if(input.equals("5")) {
+				System.out.println("Loading...");
 				s1.createFloatQuote();
 			} else if(input.equals("6")) {
+				System.out.println("Loading...");
 				s1.createDropNFloat();
 			} else if(input.equals("7")) {
+				System.out.println("Loading...");
 				s1.createStripperQuote();
 				s1.createScrambleQuote();
 				s1.createSplitQuote();

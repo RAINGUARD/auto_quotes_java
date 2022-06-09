@@ -34,6 +34,8 @@ public class StripperQuote {
 		StripperQuotePreferences.LENGTH = api.getLength(newQuote);
 		ArrayList<String> tempList = api.getLogicalChars(newQuote);
 		
+		initializeVariables();
+		
 		//removing duplicate spaces
 		String prevChar = tempList.get(0);
 		logicalChars.add(prevChar);
@@ -51,6 +53,21 @@ public class StripperQuote {
 		}
 		
 		StripperQuotePreferences.ROWS = rows;
+		int totalHeight = (StripperQuotePreferences.ROWS*StripperQuotePreferences.CELL_HEIGHT)+((StripperQuotePreferences.ROWS-1)*45);
+		StripperQuotePreferences.STARTING_Y = (540-totalHeight)/2;
+	}
+
+	private void initializeVariables() {
+		if(StripperQuotePreferences.LENGTH>15) {
+			StripperQuotePreferences.COLUMNS = 16;
+		} else {
+			StripperQuotePreferences.COLUMNS = StripperQuotePreferences.LENGTH;
+		}
+		
+		StripperQuotePreferences.CELL_WIDTH = 4*(26-StripperQuotePreferences.COLUMNS);
+		StripperQuotePreferences.CELL_HEIGHT = StripperQuotePreferences.CELL_WIDTH;
+		StripperQuotePreferences.GRID_FONT_SIZE = 1.6*(28-StripperQuotePreferences.COLUMNS);
+		
 	}
 
 	//method creates the arraylist used for the clue portion of the puzzle
@@ -60,17 +77,31 @@ public class StripperQuote {
 		if(StripperQuotePreferences.EXPERT_MODE)
 			Collections.shuffle(baseChars);
 		
+		StripperQuotePreferences.BANK_ROWS = 1;
+		if(baseChars.size()<16) {
+			StripperQuotePreferences.BANK_COLUMNS = baseChars.size();
+		} else {
+			StripperQuotePreferences.BANK_COLUMNS = 16;
+			int n = 0;
+			for(int i = 0; i<baseChars.size(); i++) {
+				n++;
+				if(n>16) {
+					StripperQuotePreferences.BANK_ROWS++;
+					n = 0;
+				}
+			}
+		}
+		
 		int index = 0;
-		bankGrid = new String[StripperQuotePreferences.ROWS][StripperQuotePreferences.COLUMNS];
-		for(int i = 0; i<StripperQuotePreferences.ROWS; i++) {
-			for(int j = 0; j<StripperQuotePreferences.COLUMNS; j++) {
+		bankGrid = new String[StripperQuotePreferences.BANK_ROWS][StripperQuotePreferences.BANK_COLUMNS];
+		for(int i = 0; i<StripperQuotePreferences.BANK_ROWS; i++) {
+			for(int j = 0; j<StripperQuotePreferences.BANK_COLUMNS; j++) {
 				if(index<baseChars.size()) {
 					bankGrid[i][j] = baseChars.get(index);
 					index++;
 				} else {
 					bankGrid[i][j] = " ";
 				}
-				
 			}
 		}
 	}

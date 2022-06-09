@@ -49,7 +49,7 @@ public class PPTGenerator {
 	private API api = new API();
 	
 	public PPTGenerator() throws SQLException, IOException {
-		System.out.println("Loading...");	
+			
 	}
 
 	//creating the split quote powerpoint
@@ -590,12 +590,12 @@ public class PPTGenerator {
 			createLogo(ppt, slide);
 
 			//Creating the clue table at top of slide
-			HSLFTable table = slide.createTable(StripperQuotePreferences.ROWS, StripperQuotePreferences.COLUMNS);
+			HSLFTable table = slide.createTable(StripperQuotePreferences.BANK_ROWS, StripperQuotePreferences.BANK_COLUMNS);
 			String[][] grid = puzzle.getBankGrid();
 			
 			//writing values to table
-			for (int i = 0; i<StripperQuotePreferences.ROWS; i++) {
-				for (int j = 0; j<StripperQuotePreferences.COLUMNS; j++) {
+			for (int i = 0; i<StripperQuotePreferences.BANK_ROWS; i++) {
+				for (int j = 0; j<StripperQuotePreferences.BANK_COLUMNS; j++) {
 					char_string = String.valueOf(grid[i][j]);
 					HSLFTableCell cell1 = table.getCell(i, j);
 
@@ -612,15 +612,13 @@ public class PPTGenerator {
 			}
 
 			//setting the width and height of the cells, and the tables draw location
-			for (int b = 0; b<StripperQuotePreferences.COLUMNS; b++) {
+			for (int b = 0; b<StripperQuotePreferences.BANK_COLUMNS; b++) {
 				table.setColumnWidth(b, StripperQuotePreferences.CELL_WIDTH);
 			}
-			for (int b = 0; b<StripperQuotePreferences.ROWS; b++) {
+			for (int b = 0; b<StripperQuotePreferences.BANK_ROWS; b++) {
 				table.setRowHeight(b, StripperQuotePreferences.CELL_HEIGHT);
 			}
-			table.moveTo(StripperQuotePreferences.STARTING_X, StripperQuotePreferences.STARTING_Y + yOffSet);
-
-			yOffSet += (45*StripperQuotePreferences.ROWS);
+			table.moveTo(centerHorizontally(table), StripperQuotePreferences.BANK_STARTING_Y);
 
 			//Creating the puzzle table at bottom of slide
 			int index = 0;
@@ -662,7 +660,7 @@ public class PPTGenerator {
 					table.setColumnWidth(b, StripperQuotePreferences.CELL_WIDTH);
 				}
 				table.setRowHeight(0, StripperQuotePreferences.CELL_HEIGHT);
-				table.moveTo(StripperQuotePreferences.STARTING_X, StripperQuotePreferences.STARTING_Y + yOffSet);
+				table.moveTo(centerHorizontally(table), StripperQuotePreferences.STARTING_Y + yOffSet);
 				yOffSet += 45;
 			}
 
@@ -739,7 +737,7 @@ public class PPTGenerator {
 					table.setColumnWidth(b, StripperQuotePreferences.CELL_WIDTH);
 				}
 				table.setRowHeight(0, StripperQuotePreferences.CELL_HEIGHT);
-				table.moveTo(StripperQuotePreferences.STARTING_X, StripperQuotePreferences.STARTING_Y + yOffSet);
+				table.moveTo(centerHorizontally(table), StripperQuotePreferences.STARTING_Y + yOffSet);
 				yOffSet += 45;
 			}
 			createSlideNumber(slide, puzzle_slide_no, StripperQuotePreferences.FONT_NAME, StripperQuotePreferences.SLIDE_NUMBER_COLOR);
@@ -777,10 +775,10 @@ public class PPTGenerator {
 
 			//creating the clue at the top of slide
 			//writing values to table
-			HSLFTable table = slide.createTable(ScrambleQuotePreferences.ROWS, ScrambleQuotePreferences.COLUMNS);
+			HSLFTable table = slide.createTable(ScrambleQuotePreferences.BANK_ROWS, ScrambleQuotePreferences.BANK_COLUMNS);
 			String[][] grid = puzzle.getBankGrid();
-			for (int i = 0; i < ScrambleQuotePreferences.ROWS; i++) {
-				for (int j = 0; j < ScrambleQuotePreferences.COLUMNS; j++) {
+			for (int i = 0; i < ScrambleQuotePreferences.BANK_ROWS; i++) {
+				for (int j = 0; j < ScrambleQuotePreferences.BANK_COLUMNS; j++) {
 					char_string = String.valueOf(grid[i][j]);
 					HSLFTableCell cell1 = table.getCell(i, j);
 
@@ -797,15 +795,13 @@ public class PPTGenerator {
 			}
 
 			//setting the width and height of the cells, and the tables draw location
-			for (int b = 0; b < ScrambleQuotePreferences.COLUMNS; b++) {
+			for (int b = 0; b < ScrambleQuotePreferences.BANK_COLUMNS; b++) {
 				table.setColumnWidth(b, ScrambleQuotePreferences.CELL_WIDTH);
 			}
-			for (int b = 0; b < ScrambleQuotePreferences.ROWS; b++) {
+			for (int b = 0; b < ScrambleQuotePreferences.BANK_ROWS; b++) {
 				table.setRowHeight(b, ScrambleQuotePreferences.CELL_HEIGHT);
 			}
-			table.moveTo(ScrambleQuotePreferences.STARTING_X, ScrambleQuotePreferences.STARTING_Y + yOffSet);
-
-			yOffSet += (45*ScrambleQuotePreferences.ROWS);
+			table.moveTo(centerHorizontally(table), ScrambleQuotePreferences.BANK_STARTING_Y);
 
 			//creating the puzzle grid and writing values to tables
 			int index = 0;
@@ -843,7 +839,7 @@ public class PPTGenerator {
 					table.setColumnWidth(b, ScrambleQuotePreferences.CELL_WIDTH);
 				}
 				table.setRowHeight(0, ScrambleQuotePreferences.CELL_HEIGHT);
-				table.moveTo(ScrambleQuotePreferences.STARTING_X, ScrambleQuotePreferences.STARTING_Y + yOffSet);
+				table.moveTo(centerHorizontally(table), ScrambleQuotePreferences.STARTING_Y + yOffSet);
 				yOffSet += 45;
 			}
 
@@ -918,7 +914,7 @@ public class PPTGenerator {
 					table.setColumnWidth(b, ScrambleQuotePreferences.CELL_WIDTH);
 				}
 				table.setRowHeight(0, ScrambleQuotePreferences.CELL_HEIGHT);
-				table.moveTo(ScrambleQuotePreferences.STARTING_X, ScrambleQuotePreferences.STARTING_Y + yOffSet);
+				table.moveTo(centerHorizontally(table), ScrambleQuotePreferences.STARTING_Y + yOffSet);
 				yOffSet += 45;
 			}
 
@@ -1248,7 +1244,7 @@ public class PPTGenerator {
 	}
 
 	//method creates the title of a given slide
-	public static void createTitle(HSLFSlide slide, String title, String fontName, double fontSize, Color c) {
+	private static void createTitle(HSLFSlide slide, String title, String fontName, double fontSize, Color c) {
 		HSLFTextBox titleBox = slide.createTextBox();
 		HSLFTextParagraph p1 = titleBox.getTextParagraphs().get(0);
 		p1.setTextAlign(TextAlign.CENTER);
@@ -1261,7 +1257,7 @@ public class PPTGenerator {
 	}
 
 	//method creates the slide number on a given slide
-	public static void createSlideNumber(HSLFSlide slide, int slideNumber, String fontName, Color c) {
+	private static void createSlideNumber(HSLFSlide slide, int slideNumber, String fontName, Color c) {
 		HSLFTextBox slideNumberBox = slide.createTextBox();
 		HSLFTextParagraph p = slideNumberBox.getTextParagraphs().get(0);
 		p.setTextAlign(TextAlign.CENTER);
@@ -1283,7 +1279,7 @@ public class PPTGenerator {
 	}
 
 	//method draws a line
-	public static void createLine(HSLFSlide slide, int x, int y, int width, int height, Color c) {
+	private static void createLine(HSLFSlide slide, int x, int y, int width, int height, Color c) {
 		HSLFLine line = new HSLFLine();
 		line.setAnchor(new Rectangle(x, y, width, height));
 		line.setLineColor(c);
@@ -1291,7 +1287,7 @@ public class PPTGenerator {
 	}
 
 	//method that adds the logo to the top left side of a slide
-	public static void createLogo(HSLFSlideShow ppt, HSLFSlide slide) throws IOException {
+	private static void createLogo(HSLFSlideShow ppt, HSLFSlide slide) throws IOException {
 		byte[] picture = IOUtils.toByteArray(new FileInputStream(new File("logo.png")));
 		HSLFPictureData pd = ppt.addPicture(picture, HSLFPictureData.PictureType.PNG);
 		HSLFPictureShape pic_shape = slide.createPicture(pd);
@@ -1299,10 +1295,20 @@ public class PPTGenerator {
 	}
 
 	//method that creates the walls of a given table cell
-	public static void setBorders(HSLFTableCell cell, Color gridColor) {
+	private static void setBorders(HSLFTableCell cell, Color gridColor) {
 		cell.setBorderColor(BorderEdge.bottom, gridColor);
 		cell.setBorderColor(BorderEdge.top, gridColor);
 		cell.setBorderColor(BorderEdge.right, gridColor);
 		cell.setBorderColor(BorderEdge.left, gridColor);
 	}
+	
+	private int centerHorizontally(HSLFTable table) {
+		
+		int width = (int) (table.getNumberOfColumns()*table.getColumnWidth(0));
+		int difference = 720 - width;
+		int startingX = difference/2;
+		
+		return startingX;
+	}
+	
 }

@@ -6,7 +6,7 @@ public class StripperQuotePreferences {
 	public final static String PPT_FILE_NAME = "Puzzles.ppt";
 	public final static String FONT_NAME = "NATS";
 	public final static String TITLE = "Stripper Quote";
-	public final static double GRID_FONT_SIZE = 12.0;
+	public static double GRID_FONT_SIZE;
 	public final static double TITLE_FONT_SIZE = 24.0;
 	public final static boolean HAS_SPACES = true;
 	public final static boolean HAS_PUNCTUATION = true;
@@ -17,14 +17,16 @@ public class StripperQuotePreferences {
 	public final static Color TITLE_COLOR = Color.BLACK;
 	public final static Color GRID_COLOR = Color.BLACK;
 	public final static Color SLIDE_NUMBER_COLOR = Color.BLACK;
-	public final static int PUZZLE_COUNT = 3;
+	public final static int PUZZLE_COUNT = 20;
 	public final static int LENGTH_MAX = 50;
 	public final static int LENGTH_MIN = 5;
-	public final static int CELL_WIDTH = 40;
-	public final static int CELL_HEIGHT = 30;
-	public final static int COLUMNS = 16;
-	public final static int STARTING_X = 40;
-	public final static int STARTING_Y = 80;
+	public final static int BANK_STARTING_Y = 80;
+	public static int STARTING_Y;
+	public static int CELL_WIDTH;
+	public static int CELL_HEIGHT;
+	public static int COLUMNS;
+	public static int BANK_COLUMNS;
+	public static int BANK_ROWS;
 	public static int LENGTH;
 	public static int ROWS;
 }
